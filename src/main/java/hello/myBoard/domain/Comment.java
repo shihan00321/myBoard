@@ -1,14 +1,55 @@
 package hello.myBoard.domain;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-public class Comment {
+import java.util.Objects;
+
+@Getter
+@ToString
+@Table(indexes = {
+        @Index(columnList = "content"),
+        @Index(columnList = "createdAt"),
+        @Index(columnList = "createdBy")
+})
+@Entity
+public class Comment extends AuditingInformation {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id")
     private Long id;
-    private Article article; //게시글 (Id);
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "user_id")
+    @Setter
+    private Article article; //게시글(Id), FK;
+
+    @Column(nullable = false, length = 500)
+    @Setter
     private String content;
 
-    private LocalDateTime createdAt;
-    private String createdBy;
-    private LocalDateTime modifiedAt;
-    private String modifiedBy;
+    protected Comment() {
+    }
+
+    private Comment(Article article, String content) {
+        this.article = article;
+        this.content = content;
+    }
+
+    public static Comment createComment(Article article, String content) {
+        return new Comment(article, content);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Comment comment)) return false;
+        return id != null && id.equals(comment.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
