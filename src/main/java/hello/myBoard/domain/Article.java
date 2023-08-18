@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Getter
-@ToString
+@ToString(of = {"id", "title", "content", "tag"})
 @Table(indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "tag"),
@@ -18,17 +18,19 @@ import java.util.Objects;
         @Index(columnList = "createdBy")
 })
 @Entity
-public class Article extends AuditingInformation {
+public class Article extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "article_id")
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserAccount userAccount;
 
     @Setter @Column(nullable = false) private String title;
     @Setter @Column(nullable = false, length = 10000) private String content;
     @Setter private String tag;
 
-    @ToString.Exclude
-    @OrderBy("createdAt")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 

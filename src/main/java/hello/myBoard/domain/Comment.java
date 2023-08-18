@@ -8,20 +8,24 @@ import lombok.ToString;
 import java.util.Objects;
 
 @Getter
-@ToString
+@ToString(of = {"id", "content"})
 @Table(indexes = {
         @Index(columnList = "content"),
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
 @Entity
-public class Comment extends AuditingInformation {
+public class Comment extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "user_id")
+    @JoinColumn(name = "user_id")
+    private UserAccount userAccount;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "article_id")
     @Setter
     private Article article; //게시글(Id), FK;
 

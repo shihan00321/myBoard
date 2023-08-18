@@ -16,8 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-public class AuditingInformation {
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+public abstract class BaseEntity {
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -26,7 +25,6 @@ public class AuditingInformation {
     @Column(nullable = false, length = 100, updatable = false)
     private String createdBy;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime modifiedAt;
