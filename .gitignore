@@ -224,3 +224,7 @@ gradle-app.setting
 
 *.yml
 application.properties
+src/main/generated
+
+src/main/resources/static/css
+src/main/resources/static/js

@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 페이지</title>
+
+    <!--Bootstrap-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+    <!-- fragment 이름, 클래스 명, 태그 이름 -->
+<!--    <header th:replace="~{header :: header1}" ></header>-->
+    <header id="header"></header>
+    <main class="container">
+        <header class="py-4 text-center">
+            <h1>첫 글</h1>
+        </header>
+        <div class="row g-5">
+            <section class="col-md-5 col-lg-4 order-md-last">
+                <aside>
+                    <p><span class="nick-name">Hyeon</span></p>
+                    <p><a class="u-url" href="https://naver.com">abcd@naver.com</a></p>
+                    <p><time datetime="2023-01-01T00:00:00">2023-01-01</time></p>
+                    <p>#java</p>
+                </aside>
+            </section>
+            <article class="col-md-7 col-lg-8">
+                <p>본문<br><br></p>
+            </article>
+        </div>
+
+        <div class="row g-5">
+            <section>
+                <form class="row g-3">
+                    <div class="col-9">
+                        <label for="articleComment" hidden>댓글</label>
+                        <textarea class="form-control" id="articleComment" placeholder="댓글 쓰기.." rows="3" required></textarea>
+                    </div>
+
+                    <div class="col-auto">
+                        <label for="comment-submit" hidden></label>
+                        <button class="btn btn-primary" type="submit" id="comment-submit">쓰기</button>
+                    </div>
+                </form>
+                <ul>
+                    <li>
+                        <div>
+                            <time><small>2023-01-01</small></time>
+                            <strong>kim</strong>
+                            <p class="mb-1">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
+                                Lorem ipsum dolor sit amet
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <time><small>2023-01-01</small></time>
+                            <strong>kim</strong>
+                            <p class="mb-1">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
+                                Lorem ipsum dolor sit amet
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <time><small>2023-01-01</small></time>
+                            <strong>kim</strong>
+                            <p class="mb-1">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
+                                Lorem ipsum dolor sit amet
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">&laquo; Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next &raquo;</a></li>
+            </ul>
+        </nav>
+    </main>
+<!--    <footer th:replace="~{footer :: footer}"></footer>-->
+    <footer id="footer"></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
