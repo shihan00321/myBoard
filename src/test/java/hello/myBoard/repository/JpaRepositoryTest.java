@@ -35,7 +35,7 @@ class JpaRepositoryTest {
     @DisplayName("select test")
     @Test
     void selectTest() {
-        Page<Article> result = articleRepository.findAllArticles(PageRequest.of(0, 10));
+        Page<Article> result = articleRepository.findAllArticlesBy(PageRequest.of(0, 10));
         for (Article article : result) {
             System.out.println("article = " + article);
         }
