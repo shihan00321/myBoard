@@ -1,22 +1,25 @@
 package hello.myBoard.dto.article;
 
+import hello.myBoard.domain.Article;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
 public class ArticlesDto {
-    private Long id;
+    private Long articleId;
+    //private Long userId;
     private String title;
     private String tag;
     private String createdBy;
     private LocalDateTime createdAt;
 
-    public ArticlesDto(Long id, String title, String tag, String createdBy, LocalDateTime createdAt) {
-        this.id = id;
-        this.title = title;
-        this.tag = tag;
-        this.createdBy = createdBy;
-        this.createdAt = createdAt;
+    public ArticlesDto(Article article) {
+        this.articleId = article.getId();
+        //this.userId = article.getUserAccount().getId();
+        this.title = article.getTitle();
+        this.tag = article.getTag();
+        this.createdBy = article.getCreatedBy();
+        this.createdAt = article.getCreatedAt();
     }
 }

@@ -1,5 +1,6 @@
 package hello.myBoard.domain;
 
+import hello.myBoard.dto.comment.CommentDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,8 +34,15 @@ public class Comment extends BaseEntity {
     @Setter
     private String content;
 
+    //==연관 관계 메서드==//
+    public void setArticle(Article article) {
+        this.article = article;
+        article.getComments().add(this);
+    }
+
     protected Comment() {
     }
+
 
     private Comment(Article article, String content) {
         this.article = article;
