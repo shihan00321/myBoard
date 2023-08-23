@@ -3,6 +3,7 @@ package hello.myBoard.service;
 import hello.myBoard.domain.Article;
 import hello.myBoard.domain.Comment;
 import hello.myBoard.dto.article.ArticleDetailDto;
+import hello.myBoard.dto.article.ArticleSearchCond;
 import hello.myBoard.dto.article.ArticlesDto;
 import hello.myBoard.dto.comment.CommentDto;
 import hello.myBoard.dto.comment.CommentRequestDto;
@@ -27,13 +28,8 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-    @Transactional
-    public void delete(Article article) {
-        articleRepository.delete(article);
-    }
-
-    public Page<ArticlesDto> findAllArticles(Pageable pageable) {
-        return articleRepository.findAllArticlesBy(pageable).map(ArticlesDto::new);
+    public Page<ArticlesDto> findAllArticles(ArticleSearchCond cond, Pageable pageable) {
+        return articleRepository.search(cond, pageable).map(ArticlesDto::new);
     }
 
     public ArticleDetailDto findOne(Long id) {

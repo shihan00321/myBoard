@@ -2,6 +2,7 @@ package hello.myBoard.api;
 
 import hello.myBoard.domain.Article;
 import hello.myBoard.dto.article.ArticleDetailDto;
+import hello.myBoard.dto.article.ArticleSearchCond;
 import hello.myBoard.dto.article.ArticlesDto;
 import hello.myBoard.dto.comment.CommentDto;
 import hello.myBoard.dto.comment.CommentRequestDto;
@@ -20,8 +21,8 @@ public class ArticleApiController {
     private final ArticleService articleService;
     private final CommentService commentService;
     @GetMapping
-    public Page<ArticlesDto> articles(Pageable pageable) {
-        return articleService.findAllArticles(pageable);
+    public Page<ArticlesDto> articles(@ModelAttribute ArticleSearchCond cond, Pageable pageable) {
+        return articleService.findAllArticles(cond, pageable);
     }
 
     @PostMapping
