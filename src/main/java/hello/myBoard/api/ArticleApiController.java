@@ -22,7 +22,7 @@ public class ArticleApiController {
     private final CommentService commentService;
     @GetMapping
     public Page<ArticlesDto> articles(@ModelAttribute ArticleSearchCond cond, Pageable pageable) {
-        return articleService.findAllArticles(cond, pageable);
+        return articleService.search(cond, pageable);
     }
 
     @PostMapping

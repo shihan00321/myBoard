@@ -9,6 +9,7 @@ import hello.myBoard.domain.Article;
 import hello.myBoard.domain.QComment;
 import hello.myBoard.dto.article.ArticleSearchCond;
 import hello.myBoard.dto.article.ArticlesDto;
+import hello.myBoard.type.SearchType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +33,8 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
                 //select(Projections.constructor(ArticlesDto.class, article)) - 1 + N 문제 발생
                 select(article)
                 .from(article)
-                .where(titleLike(cond.getTitle()), tagEq(cond.getTag()), contentLike(cond.getContent()), createdByEq(cond.getCreatedBy()))
+                .join(article.userAccount).fetchJoin()
+                .where(searchRequirement(cond))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -42,9 +44,32 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
         JPAQuery<Long> totalQuery = query.
                 select(article.count())
                 .from(article)
-                .where(titleLike(cond.getTitle()), tagEq(cond.getTag()), contentLike(cond.getContent()), createdByEq(cond.getCreatedBy()));
+                .where(searchRequirement(cond));
 
         return PageableExecutionUtils.getPage(articles, pageable, totalQuery::fetchOne);
+    }
+
+    private BooleanExpression searchRequirement(ArticleSearchCond cond) {
+        if (cond == null) return null;
+        SearchType searchType = cond.getSearchType();
+        String content = cond.getContent();
+        switch (searchType) {
+            case TITLE -> {
+                return article.title.contains(content);
+            }
+            case CONTENT -> {
+                return article.content.contains(content);
+            }
+            case TAG -> {
+                return article.tag.eq(content);
+            }
+            case NICKNAME -> {
+                return article.userAccount.nickname.eq(content);
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 
     private BooleanExpression titleLike(String title) {

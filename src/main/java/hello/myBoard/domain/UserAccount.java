@@ -15,7 +15,7 @@ public class UserAccount extends BaseEntity {
     private Long id;
     @Column(name = "user_password", nullable = false, length = 20)
     private String password;
-    @Column(length = 100)
+    @Column(length = 100, unique = true)
     private String email;
     @Column(length = 100)
     private String nickname;
@@ -23,14 +23,14 @@ public class UserAccount extends BaseEntity {
     protected UserAccount() {
     }
 
-    public UserAccount(Long id, String password, String email, String nickname) {
+    private UserAccount(Long id, String password, String email, String nickname) {
         this.id = id;
         this.password = password;
         this.email = email;
         this.nickname = nickname;
     }
 
-    public static UserAccount of(Long id, String password, String email, String nickname) {
+    public static UserAccount createUser(Long id, String password, String email, String nickname) {
         return new UserAccount(id, password, email, nickname);
     }
 

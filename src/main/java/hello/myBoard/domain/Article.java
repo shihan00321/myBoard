@@ -1,5 +1,6 @@
 package hello.myBoard.domain;
 
+import hello.myBoard.dto.user.UserAccountDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +25,7 @@ public class Article extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(nullable = false, name = "user_id")
     private UserAccount userAccount;
 
     @Setter @Column(nullable = false) private String title;
@@ -32,20 +33,22 @@ public class Article extends BaseEntity {
     @Setter private String tag;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
-    private List<Comment> comments = new ArrayList<>();
+    @OrderBy("createdAt desc")
+    private final List<Comment> comments = new ArrayList<>();
 
     protected Article() {
     }
 
-    private Article(String title, String content, String tag) {
+    private Article(UserAccount userAccount, String title, String content, String tag) {
+        this.userAccount = userAccount;
         this.title = title;
         this.content = content;
         this.tag = tag;
     }
 
     //==생성 메서드==//
-    public static Article createArticle(String title, String content, String tag) {
-        return new Article(title, content, tag);
+    public static Article createArticle(UserAccount userAccount, String title, String content, String tag) {
+        return new Article(userAccount, title, content, tag);
     }
 
     @Override

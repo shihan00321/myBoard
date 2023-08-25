@@ -10,8 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CommentService {
     private final CommentRepository commentRepository;
 
@@ -19,6 +22,7 @@ public class CommentService {
         return commentRepository.findCommentsByArticleId(articleId, pageable).map(CommentDto::new);
     }
 
+    @Transactional
     public void delete(Long commentId) {
         commentRepository.deleteById(commentId);
     }
@@ -28,5 +32,9 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 댓글을 찾을 수 없습니다."));
         comment.setContent(commentRequestDto.getContent());
+    }
+
+    public List<CommentDto> searchComment(Long articleId) {
+        return List.of(); //TODO 기능 구현
     }
 }

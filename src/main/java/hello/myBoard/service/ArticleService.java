@@ -28,8 +28,12 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-    public Page<ArticlesDto> findAllArticles(ArticleSearchCond cond, Pageable pageable) {
-        return articleRepository.search(cond, pageable).map(ArticlesDto::new);
+    public Page<ArticlesDto> search(ArticleSearchCond cond, Pageable pageable) {
+        Page<Article> articleList = articleRepository.search(cond, pageable);
+        if (articleList == null) {
+            return null;
+        }
+        return articleList.map(ArticlesDto::new);
     }
 
     public ArticleDetailDto findOne(Long id) {
@@ -58,6 +62,5 @@ public class ArticleService {
         Comment comment = Comment.createComment(article, commentRequestDto.getContent());
         article.getComments().add(comment);
     }
-
 
 }

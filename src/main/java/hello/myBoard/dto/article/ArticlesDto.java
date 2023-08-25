@@ -1,7 +1,9 @@
 package hello.myBoard.dto.article;
 
 import hello.myBoard.domain.Article;
+import hello.myBoard.domain.UserAccount;
 import hello.myBoard.dto.comment.CommentDto;
+import hello.myBoard.dto.user.UserAccountDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +15,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class ArticlesDto {
     private Long articleId;
-    //private Long userId;
+    private String nickname;
     private String title;
     private String content;
     private List<CommentDto> comments;
@@ -29,5 +31,6 @@ public class ArticlesDto {
         this.tag = article.getTag();
         this.createdBy = article.getCreatedBy();
         this.createdAt = article.getCreatedAt();
+        this.nickname = article.getUserAccount().getNickname();
     }
 }
