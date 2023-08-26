@@ -50,7 +50,7 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
     }
 
     private BooleanExpression searchRequirement(ArticleSearchCond cond) {
-        if (cond == null) return null;
+        if (cond.getSearchType() == null || cond.getContent() == null) return null;
         SearchType searchType = cond.getSearchType();
         String content = cond.getContent();
         switch (searchType) {

@@ -1,5 +1,6 @@
 package hello.myBoard.controller;
 
+import hello.myBoard.dto.article.ArticleDetailDto;
 import hello.myBoard.dto.article.ArticleSearchCond;
 import hello.myBoard.dto.article.ArticlesDto;
 import hello.myBoard.service.ArticleService;
@@ -25,17 +26,19 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping
-    public String articles(@ModelAttribute ArticleSearchCond cond, ModelMap model,
+    public String articles(@ModelAttribute ArticleSearchCond cond,
+                           ModelMap model,
                            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<ArticlesDto> search = articleService.search(cond, pageable);
-        model.addAttribute("articles", List.of());
+        model.addAttribute("articles", search);
         return "articles/index";
     }
 
     @GetMapping("/{articleId}")
     public String article(@PathVariable Long articleId, ModelMap model) {
-        model.addAttribute("article", "article");
-        model.addAttribute("comments", List.of());
+        ArticleDetailDto articleDetailDto = articleService.findOne(articleId);
+        System.out.println("articleDetailDto = " + articleDetailDto.getComments().getClass());
+        model.addAttribute("article", articleDetailDto);
         return "articles/detail";
     }
 }

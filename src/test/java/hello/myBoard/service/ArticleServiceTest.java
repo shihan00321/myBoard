@@ -1,6 +1,7 @@
 package hello.myBoard.service;
 
 import hello.myBoard.domain.Article;
+import hello.myBoard.domain.UserAccount;
 import hello.myBoard.dto.article.ArticleDetailDto;
 import hello.myBoard.dto.article.ArticleSearchCond;
 import hello.myBoard.dto.article.ArticlesDto;
@@ -40,7 +41,7 @@ class ArticleServiceTest {
     @DisplayName("게시글 저장")
     @Test
     void saveTest() {
-        Article article = Article.createArticle("hello", "helloContent", "tag");
+        Article article = Article.createArticle(UserAccount.createUser(1L, "1234", "111@naver.com", "hye"), "title", "content", "#tag");
         BDDMockito.given(articleRepository.save(ArgumentMatchers.any(Article.class))).willReturn(null);
 
         articleService.save(article);
@@ -52,7 +53,7 @@ class ArticleServiceTest {
     @DisplayName("게시글 수정")
     @Test
     void updateTest() {
-        Article article = Article.createArticle("hello", "helloContent", "tag");
+        Article article = Article.createArticle(UserAccount.createUser(1L, "1234", "111@naver.com", "hye"), "title", "content", "#tag");
         ArticleDetailDto articleDetailDto = new ArticleDetailDto(article);
         BDDMockito.given(articleRepository.save(ArgumentMatchers.any(Article.class))).willReturn(null);
 

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class CommentDto {
     private Long commentId;
-    //private String nickname;
+    private String nickname;
     private Long articleId;
     private String content;
     private String createdBy;
@@ -20,5 +20,6 @@ public class CommentDto {
         this.content = comment.getContent();
         this.createdBy = comment.getCreatedBy();
         this.createdAt = comment.getCreatedAt();
+        this.nickname = comment.getUserAccount().getNickname();
     }
 }

@@ -2,6 +2,7 @@ package hello.myBoard.repository;
 
 import hello.myBoard.config.JpaConfig;
 import hello.myBoard.domain.Article;
+import hello.myBoard.domain.UserAccount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,7 +46,7 @@ class JpaRepositoryTest {
     @DisplayName("insert test")
     @Test
     void insertTest() {
-        Article article = Article.createArticle("title", "content", "#tag");
+        Article article = Article.createArticle(UserAccount.createUser(1L, "1234", "111@naver.com", "hye"), "title", "content", "#tag");
 
         Article savedArticle = articleRepository.save(article);
 

@@ -1,6 +1,7 @@
 package hello.myBoard.api;
 
 import hello.myBoard.domain.Article;
+import hello.myBoard.domain.UserAccount;
 import hello.myBoard.dto.article.ArticleDetailDto;
 import hello.myBoard.dto.comment.CommentRequestDto;
 import hello.myBoard.service.ArticleService;
@@ -19,7 +20,7 @@ class ArticleApiControllerTest {
 
     @Test
     void updateTest() {
-        ArticleDetailDto articleDetailDto = new ArticleDetailDto(Article.createArticle("hello", "hello2", "#spring"));
+        ArticleDetailDto articleDetailDto = new ArticleDetailDto(Article.createArticle(UserAccount.createUser(5L, "12", "123@naver.com", "hi"), "hello", "hello2", "#spring"));
         articleService.update(10L, articleDetailDto);
     }
 
