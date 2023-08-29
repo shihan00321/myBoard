@@ -8,6 +8,13 @@ import java.util.Objects;
 
 @Entity
 @Getter
+@Table(indexes = {
+        @Index(columnList = "user_id"),
+        @Index(columnList = "email"),
+        @Index(columnList = "nickname"),
+        @Index(columnList = "createdAt"),
+        @Index(columnList = "createdBy")
+})
 @ToString(of = {"id", "email", "nickname"})
 public class UserAccount extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +24,7 @@ public class UserAccount extends BaseEntity {
     private String password;
     @Column(length = 100, unique = true)
     private String email;
-    @Column(length = 100)
+    @Column(length = 100, unique = true)
     private String nickname;
 
     protected UserAccount() {

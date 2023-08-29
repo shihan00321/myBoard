@@ -29,10 +29,13 @@ public class ArticleService {
     }
 
     public Page<ArticlesDto> search(ArticleSearchCond cond, Pageable pageable) {
-        Page<Article> articleList = articleRepository.search(cond, pageable);
-        if (articleList == null) {
-            return null;
+        if (cond.getSearchType() == null || cond.getContent() == null) {
+            System.out.println("condNull");
+            return articleRepository.findAll(pageable).map(ArticlesDto::new);
         }
+        Page<Article> articleList = articleRepository.search(cond, pageable);
+        System.out.println("cond content = " + cond.getContent());
+        System.out.println("condNotNull");
         return articleList.map(ArticlesDto::new);
     }
 
