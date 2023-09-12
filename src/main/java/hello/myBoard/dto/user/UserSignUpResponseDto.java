@@ -19,16 +19,17 @@ public class UserSignUpResponseDto {
     private String userTextId;
     private String password;
     private String nickname;
+    private Set<AuthorityDto> authorityDtoSet;
 
-    private RoleType role;
-
-    public static UserSignUpResponseDto from(UserAccount user) {
-        if(user == null) return null;
+    public static UserSignUpResponseDto from(UserAccount userAccount) {
+        if(userAccount == null) return null;
 
         return UserSignUpResponseDto.builder()
-                .userTextId(user.getUserTextId())
-                .nickname(user.getNickname())
-                .role(user.getRoleType())
+                .userTextId(userAccount.getUserTextId())
+                .nickname(userAccount.getNickname())
+                .authorityDtoSet(userAccount.getAuthorities().stream()
+                        .map(authority -> AuthorityDto.builder().authorityName(authority.getAuthority().getRoleName().name()).build())
+                        .collect(Collectors.toSet()))
                 .build();
     }
 }

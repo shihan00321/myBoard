@@ -16,8 +16,7 @@ public class UserApiController {
     private final UserAccountService userAccountService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserSignUpResponseDto> signUp(@RequestBody UserJoinRequest joinUserDto) {
-        UserSignUpResponseDto userSignUpResponseDto = userAccountService.join(joinUserDto);
-        return ResponseEntity.ok(userSignUpResponseDto);
+    public void signUp(@RequestBody UserJoinRequest joinUserDto) {
+        userAccountService.join(joinUserDto);
     }
 }

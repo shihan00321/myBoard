@@ -32,7 +32,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private User createUser(String username, UserAccount user) {
-        List<GrantedAuthority> grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRoleType().getRole()));
+        List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
+                .map(authority -> new SimpleGrantedAuthority(authority.getAuthority().getRoleName().name()))
+                .collect(Collectors.toList());
 
         return new User(user.getUserTextId(),
                 user.getPassword(),

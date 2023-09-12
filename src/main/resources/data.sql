@@ -1,3 +1,6 @@
+insert into authority (authority_role) values ('ROLE_USER');
+insert into authority (authority_role) values ('ROLE_ADMIN');
+
 insert into user_account (user_text_id, user_password, email, nickname, created_at, created_by, modified_at, modified_by) values ('ahaimes0', 'tJ5_8?suq\a%wu}', 'ahaimes0@about.me', 'Alfie Haimes', '2023-08-29 11:07:46', 'Vinson', '2022-10-26 22:58:43', 'Alfie');
 insert into user_account (user_text_id, user_password, email, nickname, created_at, created_by, modified_at, modified_by) values ('aboas1', 'iK7!/t9mW', 'aboas1@pcworld.com', 'Alvie Boas', '2023-01-27 23:12:50', 'Chelsea', '2023-08-17 15:01:51', 'Alvie');
 insert into user_account (user_text_id, user_password, email, nickname, created_at, created_by, modified_at, modified_by) values ('jwickens2', 'rU9>EfKpbm?7,12', 'jwickens2@whitehouse.gov', 'Jacob Wickens', '2023-01-25 02:49:40', 'Charlene', '2023-02-12 11:43:53', 'Jacob');

@@ -2,12 +2,12 @@ package hello.myBoard.domain;
 
 import hello.myBoard.type.RoleType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Getter
@@ -19,6 +19,8 @@ import java.util.Objects;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
+@Builder
+@AllArgsConstructor
 @ToString(of = {"id", "email", "nickname"})
 public class UserAccount extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +35,8 @@ public class UserAccount extends BaseEntity {
     @Column(length = 100, unique = true)
     private String nickname;
 
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL)
+    private Set<UserAccountAuthority> authorities = new HashSet<>();
 
     protected UserAccount() {
     }
@@ -44,12 +46,12 @@ public class UserAccount extends BaseEntity {
         this.password = password;
         this.email = email;
         this.nickname = nickname;
-        this.roleType = RoleType.USER;
     }
 
     public static UserAccount createUser(String userTextId, String password, String email, String nickname) {
         return new UserAccount(userTextId, password, email, nickname);
     }
+
 
     @Override
     public boolean equals(Object o) {
