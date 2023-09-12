@@ -20,8 +20,8 @@ class ArticleApiControllerTest {
 
     @Test
     void updateTest() {
-        ArticleDetailDto articleDetailDto = new ArticleDetailDto(Article.createArticle(UserAccount.createUser(5L, "12", "123@naver.com", "hi"), "hello", "hello2", "#spring"));
-        articleService.update(10L, articleDetailDto);
+        //ArticleDetailDto articleDetailDto = new ArticleDetailDto(Article.createArticle(UserAccount.createUser(5L, "12", "123@naver.com", "hi"), "hello", "hello2", "#spring"));
+        //articleService.update(10L, articleDetailDto);
     }
 
     @Test

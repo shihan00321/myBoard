@@ -1,15 +1,19 @@
 package hello.myBoard.domain;
 
+import hello.myBoard.type.RoleType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Getter
 @Table(indexes = {
         @Index(columnList = "user_id"),
+        @Index(columnList = "user_text_id"),
         @Index(columnList = "email"),
         @Index(columnList = "nickname"),
         @Index(columnList = "createdAt"),
@@ -18,27 +22,33 @@ import java.util.Objects;
 @ToString(of = {"id", "email", "nickname"})
 public class UserAccount extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", length = 30)
+    @Column(name = "user_id")
     private Long id;
-    @Column(name = "user_password", nullable = false, length = 20)
+    @Column(name = "user_text_id", unique = true, nullable = false, updatable = false, length = 20)
+    private String userTextId;
+    @Column(name = "user_password", nullable = false)
     private String password;
     @Column(length = 100, unique = true)
     private String email;
     @Column(length = 100, unique = true)
     private String nickname;
 
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
     protected UserAccount() {
     }
 
-    private UserAccount(Long id, String password, String email, String nickname) {
-        this.id = id;
+    private UserAccount(String userTextId, String password, String email, String nickname) {
+        this.userTextId = userTextId;
         this.password = password;
         this.email = email;
         this.nickname = nickname;
+        this.roleType = RoleType.USER;
     }
 
-    public static UserAccount createUser(Long id, String password, String email, String nickname) {
-        return new UserAccount(id, password, email, nickname);
+    public static UserAccount createUser(String userTextId, String password, String email, String nickname) {
+        return new UserAccount(userTextId, password, email, nickname);
     }
 
     @Override

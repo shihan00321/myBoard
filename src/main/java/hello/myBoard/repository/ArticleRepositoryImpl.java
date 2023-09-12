@@ -5,7 +5,9 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.core.types.dsl.SimplePath;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import hello.myBoard.domain.Article;
@@ -83,8 +85,8 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
         if (!pageable.getSort().isEmpty()) {
             for (Sort.Order order : pageable.getSort()) {
                 Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
-                PathBuilder pathBuilder = new PathBuilder(article.getType(), article.getMetadata());
-                return new OrderSpecifier(direction, pathBuilder.get(order.getProperty()));
+                SimplePath<Article> path = Expressions.path(Article.class, article, order.getProperty());
+                return new OrderSpecifier(direction, path);
             }
         }
         return null;
