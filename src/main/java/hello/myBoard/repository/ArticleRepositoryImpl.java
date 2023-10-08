@@ -1,5 +1,6 @@
 package hello.myBoard.repository;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
@@ -12,6 +13,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import hello.myBoard.domain.Article;
 import hello.myBoard.domain.QComment;
+import hello.myBoard.dto.article.ArticleDetailDto;
 import hello.myBoard.dto.article.ArticleSearchCond;
 import hello.myBoard.dto.article.ArticlesDto;
 import hello.myBoard.type.SearchType;
@@ -56,6 +58,7 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
 
         return PageableExecutionUtils.getPage(articles, pageable, totalQuery::fetchOne);
     }
+
 
     private BooleanExpression searchRequirement(ArticleSearchCond cond) {
         if (cond.getSearchType() == null || cond.getContent() == null) return null;

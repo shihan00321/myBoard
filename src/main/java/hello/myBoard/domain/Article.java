@@ -32,7 +32,7 @@ public class Article extends BaseEntity {
     @Setter @Column(nullable = false, length = 10000) private String content;
     @Setter private String tag;
 
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("createdAt desc")
     private final List<Comment> comments = new ArrayList<>();
 

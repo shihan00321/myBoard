@@ -2,10 +2,7 @@ package hello.myBoard.domain;
 
 import hello.myBoard.type.RoleType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.*;
 
@@ -28,14 +25,17 @@ public class UserAccount extends BaseEntity {
     private Long id;
     @Column(name = "user_text_id", unique = true, nullable = false, updatable = false, length = 20)
     private String userTextId;
+
     @Column(name = "user_password", nullable = false)
     private String password;
     @Column(length = 100, unique = true)
+    @Setter
     private String email;
     @Column(length = 100, unique = true)
+    @Setter
     private String nickname;
 
-    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.REMOVE)
     private Set<UserAccountAuthority> authorities = new HashSet<>();
 
     protected UserAccount() {
@@ -64,4 +64,5 @@ public class UserAccount extends BaseEntity {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
 }

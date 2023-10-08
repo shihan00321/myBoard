@@ -42,8 +42,14 @@ public class ArticleService {
         return new ArticleDetailDto(findArticle);
     }
 
+    @Transactional
     public void delete(Long articleId) {
-        articleRepository.deleteById(articleId);
+        Article article = articleRepository.findById(articleId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
+        List<Comment> comments = article.getComments();
+        for (Comment comment : comments) {
+            comment.deletePost(article);
+        }
+        articleRepository.delete(article);
     }
 
     @Transactional
@@ -60,7 +66,7 @@ public class ArticleService {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
         Comment comment = Comment.createComment(article, commentRequestDto.getContent());
-        article.getComments().add(comment);
+        //article.getComments().add(comment);
     }
 
 }

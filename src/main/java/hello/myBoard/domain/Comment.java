@@ -26,8 +26,7 @@ public class Comment extends BaseEntity {
     private UserAccount userAccount;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "article_id")
-    @Setter
+    @JoinColumn(name = "article_id")
     private Article article; //게시글(Id), FK;
 
     @Column(nullable = false, length = 500)
@@ -47,6 +46,10 @@ public class Comment extends BaseEntity {
     private Comment(Article article, String content) {
         this.article = article;
         this.content = content;
+    }
+
+    public void deletePost(Article article) {
+        this.article = null;
     }
 
     public static Comment createComment(Article article, String content) {

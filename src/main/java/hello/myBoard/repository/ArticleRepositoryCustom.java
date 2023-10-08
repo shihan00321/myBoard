@@ -1,6 +1,7 @@
 package hello.myBoard.repository;
 
 import hello.myBoard.domain.Article;
+import hello.myBoard.dto.article.ArticleDetailDto;
 import hello.myBoard.dto.article.ArticleSearchCond;
 import hello.myBoard.dto.article.ArticlesDto;
 import org.springframework.data.domain.Page;

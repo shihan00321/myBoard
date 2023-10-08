@@ -1,6 +1,7 @@
 package hello.myBoard.api;
 
 import hello.myBoard.domain.Article;
+import hello.myBoard.domain.Comment;
 import hello.myBoard.dto.article.ArticleDetailDto;
 import hello.myBoard.dto.article.ArticleSearchCond;
 import hello.myBoard.dto.article.ArticlesDto;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,7 +45,7 @@ public class ArticleApiController {
 
     @DeleteMapping("/{articleId}")
     public void delete(@PathVariable Long articleId) {
-        articleService.delete(articleId); //TODO 권한 인가
+        articleService.delete(articleId);
     }
 
     @PatchMapping("/{articleId}")

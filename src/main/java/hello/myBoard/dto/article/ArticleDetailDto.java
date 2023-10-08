@@ -1,6 +1,7 @@
 package hello.myBoard.dto.article;
 
 import hello.myBoard.domain.Article;
+import hello.myBoard.domain.Comment;
 import hello.myBoard.dto.comment.CommentDto;
 import hello.myBoard.dto.user.UserAccountDto;
 import lombok.Data;
