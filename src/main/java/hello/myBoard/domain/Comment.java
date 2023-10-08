@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.Objects;
 
@@ -43,8 +44,9 @@ public class Comment extends BaseEntity {
     }
 
 
-    private Comment(Article article, String content) {
+    private Comment(Article article, UserAccount userAccount, String content) {
         this.article = article;
+        this.userAccount = userAccount;
         this.content = content;
     }
 
@@ -52,8 +54,8 @@ public class Comment extends BaseEntity {
         this.article = null;
     }
 
-    public static Comment createComment(Article article, String content) {
-        return new Comment(article, content);
+    public static Comment createComment(Article article, UserAccount userAccount, String content) {
+        return new Comment(article, userAccount, content);
     }
 
     @Override

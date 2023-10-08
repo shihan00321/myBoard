@@ -26,13 +26,6 @@ class ArticleApiControllerTest {
 
     @Test
     @Rollback(value = false)
-    void saveCommentTest() {
-        CommentRequestDto requestDto = new CommentRequestDto("myContent 댓글1");
-        articleService.saveComments(10L, requestDto);
-    }
-
-    @Test
-    @Rollback(value = false)
     void deleteComment() {
         commentService.delete(40L);
     }

@@ -2,11 +2,13 @@ package hello.myBoard.service;
 
 import hello.myBoard.domain.Article;
 import hello.myBoard.domain.Comment;
+import hello.myBoard.domain.UserAccount;
 import hello.myBoard.dto.article.ArticleDetailDto;
 import hello.myBoard.dto.article.ArticleSearchCond;
 import hello.myBoard.dto.article.ArticlesDto;
 import hello.myBoard.dto.comment.CommentDto;
 import hello.myBoard.dto.comment.CommentRequestDto;
+import hello.myBoard.dto.user.UserDetailDto;
 import hello.myBoard.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -59,14 +61,6 @@ public class ArticleService {
         findArticle.setTitle(articleDetailDto.getTitle());
         findArticle.setTag(articleDetailDto.getTag());
         findArticle.setContent(articleDetailDto.getContent());
-    }
-
-    @Transactional
-    public void saveComments(Long articleId, CommentRequestDto commentRequestDto) {
-        Article article = articleRepository.findById(articleId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
-        Comment comment = Comment.createComment(article, commentRequestDto.getContent());
-        article.getComments().add(comment);
     }
 
 }
