@@ -66,7 +66,7 @@ public class ArticleService {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
         Comment comment = Comment.createComment(article, commentRequestDto.getContent());
-        //article.getComments().add(comment);
+        article.getComments().add(comment);
     }
 
 }

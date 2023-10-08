@@ -22,7 +22,6 @@ import java.util.List;
 public class ArticleApiController {
 
     private final ArticleService articleService;
-    private final CommentService commentService;
     @GetMapping
     public Page<ArticlesDto> articles(@ModelAttribute ArticleSearchCond cond, Pageable pageable) {
         return articleService.search(cond, pageable);
@@ -38,11 +37,6 @@ public class ArticleApiController {
         return articleService.findOne(articleId);
     }
 
-    @GetMapping("/{articleId}/comments")
-    public Page<CommentDto> commentsByArticle(@PathVariable Long articleId, Pageable pageable) {
-        return commentService.findAllCommentsByArticle(articleId, pageable);
-    }
-
     @DeleteMapping("/{articleId}")
     public void delete(@PathVariable Long articleId) {
         articleService.delete(articleId);
@@ -51,20 +45,5 @@ public class ArticleApiController {
     @PatchMapping("/{articleId}")
     public void update(@PathVariable Long articleId, @RequestBody ArticleDetailDto articleDetailDto) {
         articleService.update(articleId, articleDetailDto);
-    }
-
-    @PostMapping("/{articleId}/comments")
-    public void saveComments(@PathVariable Long articleId, @RequestBody CommentRequestDto commentDto) {
-        articleService.saveComments(articleId, commentDto);
-    }
-
-    @DeleteMapping("/{articleId}/comments/{commentId}")
-    public void deleteComment(@PathVariable Long articleId, @PathVariable Long commentId) {
-        articleService.delete(commentId);
-    }
-
-    @PatchMapping("/{articleId}/comments/{commentId}")
-    public void updateComment(@PathVariable Long articleId, @PathVariable Long commentId, @RequestBody CommentRequestDto commentRequestDto) {
-        commentService.updateComment(commentId, commentRequestDto);
     }
 }

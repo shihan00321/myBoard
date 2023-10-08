@@ -1,7 +1,9 @@
 package hello.myBoard.service;
 
 import hello.myBoard.domain.UserAccount;
+import hello.myBoard.dto.user.UserDetailDto;
 import hello.myBoard.repository.UserAccountRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component("userDetailsService")
+@Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
     private final UserAccountRepository userRepository;
 
@@ -36,8 +39,10 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .map(authority -> new SimpleGrantedAuthority(authority.getAuthority().getRoleName().name()))
                 .collect(Collectors.toList());
 
-        return new User(user.getUserTextId(),
+        log.info("userId = {}", user.getId());
+
+        return new UserDetailDto(user.getUserTextId(),
                 user.getPassword(),
-                grantedAuthorities);
+                grantedAuthorities, user.getId());
     }
 }

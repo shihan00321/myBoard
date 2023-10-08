@@ -3,6 +3,8 @@ package hello.myBoard.domain;
 import hello.myBoard.type.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
